@@ -1,6 +1,6 @@
 +++
 draft = false
-title = "Reference Guides (Cheatsheets)"
+title = "Reference Guides (Cheat Sheets)"
 date = 2026-04-19
 tags = ["Reference", "Field Note"]
 +++
