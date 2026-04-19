@@ -1,0 +1,208 @@
+<div id="terminal-widget" style="width:100%;font-family:monospace;font-size:12px;"></div>
+<script>
+const widget = document.getElementById('terminal-widget');
+const pick = Math.floor(Math.random() * 3);
+
+function isDark(){ return document.documentElement.classList.contains('dark')||document.body.classList.contains('dark')||window.matchMedia('(prefers-color-scheme: dark)').matches; }
+
+const toolCommands = [
+  'sudo tcpdump -i eth0 -n -q',
+  'xxd /tmp/svchost32.exe',
+  'tail -f /var/log/siem/alerts.log',
+];
+
+const sshLines = [
+  { text: '$ ssh -p22 -i lance.key lanceterminal@asgar.net', delay: 0, color: '#ffffff' },
+  { text: 'Connecting to asgar.net...',                                       delay: 300  },
+  { text: 'Authenticated to asgar.net ([172.16.0.2]:22).',                   delay: 800,  color: '#00cc44' },
+  { text: 'Last login: ' + new Date().toUTCString() + ' from 172.16.1.55', delay: 1100, color: '#555' },
+  { text: '', delay: 1250 },
+  { text: 'VGhhbmsgZm9yIHZpc2l0aW5nLiBIb3BlIHlvdSBsZWFybiBhbmQgc3RheSBjb25uZWN0ZWQu', delay: 1300, color: '#ffaa00' },
+];
+
+const sshDiv = document.createElement('div');
+sshDiv.style.cssText = 'padding:8px;line-height:1.6;';
+widget.appendChild(sshDiv);
+
+function appendLine(parent, text, color){
+  const div = document.createElement('div');
+  div.style.cssText = `color:${color || '#00cc44'};white-space:pre;`;
+  div.textContent = text;
+  parent.appendChild(div);
+}
+
+// type out the tool command character by character
+function typeCommand(parent, command, color, done){
+  const line = document.createElement('div');
+  line.style.cssText = `color:${color || '#00cc44'};white-space:pre;`;
+  line.textContent = 'lanceterminal@asgar.net:~$ ';
+  parent.appendChild(line);
+
+  let i = 0;
+  const interval = setInterval(() => {
+    line.textContent += command[i];
+    i++;
+    if(i >= command.length){
+      clearInterval(interval);
+      setTimeout(done, 400);
+    }
+  }, 60 + Math.random() * 60); // human typing speed with variance
+}
+
+// render SSH lines then type the command
+sshLines.forEach(({ text, delay, color }) => {
+  setTimeout(() => appendLine(sshDiv, text, color), delay);
+});
+
+setTimeout(() => {
+  typeCommand(sshDiv, toolCommands[pick], '#ffffff', () => {
+    // divider
+    const hr = document.createElement('div');
+    hr.style.cssText = 'border-top:1px solid #222;margin:8px 0;';
+    widget.appendChild(hr);
+
+    // feed
+    const feed = document.createElement('div');
+    feed.style.cssText = 'width:100%;height:360px;overflow:hidden;line-height:1.6;padding:4px 8px;box-sizing:border-box;';
+    widget.appendChild(feed);
+
+    if(pick === 0){
+      // TCPDUMP
+      function ts(){ const d=new Date(); return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}.${String(d.getMilliseconds()).padStart(6,'0')}`; }
+      const packets=[
+        {type:'normal',msg:'172.16.0.10.52341 > 8.8.8.8.53: UDP, length 32'},
+        {type:'normal',msg:'172.16.0.2.443 > 172.16.0.14.49822: Flags [P.], seq 1:441, ack 1, win 501'},
+        {type:'normal',msg:'172.16.0.14.49822 > 172.16.0.2.443: Flags [.], ack 441, win 502'},
+        {type:'normal',msg:'172.16.0.3.445 > 172.16.0.22.49152: Flags [P.], seq 1:105, ack 1'},
+        {type:'normal',msg:'172.16.0.14.51200 > 172.16.0.1.53: UDP, length 28'},
+        {type:'normal',msg:'8.8.8.8.53 > 172.16.0.14.51200: UDP, length 44'},
+        {type:'warn',  msg:'172.16.0.14.4444 > 185.220.101.34.443: Flags [P.], seq 1:897, ack 1'},
+        {type:'normal',msg:'172.16.0.22.135 > 172.16.0.14.49155: Flags [S.], seq 0, ack 1'},
+        {type:'warn',  msg:'172.16.0.14.53 > 172.16.0.1.53: UDP, length 512 — oversized DNS'},
+        {type:'alert', msg:'185.220.101.34.443 > 172.16.0.14.4444: Flags [P.], seq 1:2049 — C2 BEACON'},
+        {type:'normal',msg:'172.16.0.3.389 > 172.16.0.14.49201: Flags [P.], seq 1:333, ack 1'},
+        {type:'warn',  msg:'172.16.0.14.445 > 172.16.0.22.445: Flags [S], seq 0 — lateral SMB'},
+        {type:'alert', msg:'91.108.4.200.80 > 172.16.0.14.50012: Flags [P.] — dropper download'},
+        {type:'warn',  msg:'172.16.0.14.49999 > 172.16.0.3.88: Flags [S] — kerberos SPN scan'},
+        {type:'alert', msg:'172.16.0.14.4445 > 185.220.101.34.8080: Flags [P.] — exfil attempt'},
+        {type:'warn',  msg:'172.16.0.14.0 > 172.16.255.255.0: ICMP echo — subnet sweep'},
+        {type:'alert', msg:'172.16.0.14 > 172.16.0.22: ICMP redirect — T1557 MITM attempt'},
+        {type:'normal',msg:'172.16.0.9.123 > 216.239.35.0.123: NTP, Client'},
+        {type:'normal',msg:'172.16.0.5.3389 > 172.16.0.8.54321: Flags [P.], seq 1:129, ack 1'},
+        {type:'normal',msg:'172.16.0.1.53 > 172.16.0.10.52341: UDP, length 48'},
+      ];
+      let idx=0;
+      function addPacket(){
+        const dark=isDark(); const entry=packets[idx%packets.length]; idx++;
+        const line=document.createElement('div'); line.style.cssText='display:flex;gap:10px;padding:0;opacity:0;transition:opacity 0.3s;';
+        const time=document.createElement('span'); time.style.cssText=`color:${dark?'#444':'#bbb'};flex-shrink:0;`; time.textContent=ts();
+        const msg=document.createElement('span'); msg.style.cssText=`color:${entry.type==='alert'?(dark?'#ff4444':'#cc0000'):entry.type==='warn'?(dark?'#ffaa00':'#996600'):(dark?'#888888':'#555555')};`; msg.textContent=entry.msg;
+        line.appendChild(time); line.appendChild(msg);
+        feed.appendChild(line);
+        requestAnimationFrame(()=>{ line.style.opacity='1'; });
+        while(feed.children.length>60) feed.removeChild(feed.firstChild);
+        feed.scrollTop=feed.scrollHeight;
+      }
+      const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){setInterval(addPacket,500);} }); },{threshold:0.1});
+      obs.observe(feed);
+
+    } else if(pick === 1){
+      // HEXDUMP
+      const hotBytes=['4D','5A','FF','D8','7F','45','4C','46','50','4B','CA','FE','BA','BE'];
+      let offset=0;
+      function randHex(){ return Math.floor(Math.random()*256).toString(16).padStart(2,'0').toUpperCase(); }
+      function buildRow(){
+        const dark=isDark();
+        const row=document.createElement('div'); row.style.cssText='display:flex;gap:16px;padding:1px 0;opacity:0;transition:opacity 0.4s;';
+        const off=document.createElement('span'); off.style.cssText=`color:${dark?'#444':'#bbb'};flex-shrink:0;`; off.textContent=offset.toString(16).padStart(8,'0').toUpperCase();
+        const hex=document.createElement('span'); hex.style.cssText='flex-shrink:0;display:flex;gap:6px;';
+        const bytes=[];
+        for(let i=0;i<16;i++){
+          const b=randHex(); bytes.push(b);
+          const s=document.createElement('span');
+          s.style.color=hotBytes.includes(b)?(dark?'#ff4444':'#cc0000'):Math.random()>0.85?(dark?'#ffffff':'#000000'):(dark?'#888':'#666');
+          s.textContent=b; hex.appendChild(s);
+          if(i===7){ const sp=document.createElement('span'); sp.style.color=dark?'#333':'#ccc'; sp.textContent='│'; hex.appendChild(sp); }
+        }
+        const asc=document.createElement('span'); asc.style.cssText=`color:${dark?'#555':'#aaa'};`;
+        asc.textContent=bytes.map(b=>{ const n=parseInt(b,16); return(n>=33&&n<=126)?String.fromCharCode(n):'.'; }).join('');
+        row.appendChild(off); row.appendChild(hex); row.appendChild(asc);
+        feed.appendChild(row);
+        requestAnimationFrame(()=>{ row.style.opacity='1'; });
+        offset+=16;
+        while(feed.children.length>50) feed.removeChild(feed.firstChild);
+        feed.scrollTop=feed.scrollHeight;
+      }
+      const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){setInterval(buildRow,500);} }); },{threshold:0.1});
+      obs.observe(feed);
+
+    } else {
+      // LOG FEED
+      const logs=[
+        { level:'INFO',  msg:'172.16.0.14 → 172.16.0.1:443 TLS handshake complete' },
+        { level:'INFO',  msg:'svchost.exe PID:2398 spawned by services.exe' },
+        { level:'INFO',  msg:'172.16.1.55 → 8.8.8.8:53 DNS query: windowsupdate.com' },
+        { level:'WARN',  msg:'unusual parent-child: winword.exe → cmd.exe' },
+        { level:'INFO',  msg:'172.16.2.3 → 172.16.2.1:445 SMB session opened' },
+        { level:'INFO',  msg:'auth success: lanceterminal @ asgar.net 172.16.0.2' },
+        { level:'WARN',  msg:'powershell.exe -enc [base64 blob detected]' },
+        { level:'INFO',  msg:'172.16.0.5 → 172.16.0.1:80 HTTP GET /update' },
+        { level:'ALERT', msg:'lsass.exe memory read — T1003.001 credential access' },
+        { level:'INFO',  msg:'new process: rundll32.exe PID:4821 PPID:1337' },
+        { level:'WARN',  msg:'DNS query: evil-c2-domain.xyz — reputation: MALICIOUS' },
+        { level:'INFO',  msg:'185.220.101.34:4444 → 172.16.0.14 reverse shell attempt' },
+        { level:'ALERT', msg:'lateral movement: PsExec 172.16.0.14 → 172.16.0.22 T1021' },
+        { level:'INFO',  msg:'172.16.0.22 → 172.16.0.14:135 RPC bind request' },
+        { level:'WARN',  msg:'registry write: HKCU\\Software\\Microsoft\\Run' },
+        { level:'INFO',  msg:'file created: C:\\Users\\Public\\svchost32.exe' },
+        { level:'WARN',  msg:'91.108.4.200:443 → 172.16.0.14 C2 beacon response' },
+        { level:'ALERT', msg:'sigma match: proc_injection_via_hollowing — confidence HIGH' },
+        { level:'INFO',  msg:'net user /domain query from PID:4821' },
+        { level:'WARN',  msg:'outbound beacon: 172.16.0.14 → 185.220.101.34:443 interval:60s' },
+        { level:'INFO',  msg:'ETW telemetry: amsi.dll loaded into powershell.exe' },
+        { level:'ALERT', msg:'STAR rule triggered: ransomware file rename pattern detected' },
+        { level:'INFO',  msg:'auth failure: lanceterminal @ asgar.net — bad password x3' },
+        { level:'WARN',  msg:'shadow copy deletion: vssadmin delete shadows /all' },
+        { level:'INFO',  msg:'194.165.16.11:80 → 172.16.0.14 HTTP dropper download' },
+        { level:'WARN',  msg:'outbound TLS: 172.16.0.14 → 104.21.3.89:443 SNI: cdn.updates.io' },
+        { level:'ALERT', msg:'IR engaged: host 172.16.0.14 isolated — lanceterminal notified' },
+        { level:'INFO',  msg:'volatility: pslist dump initiated on memory.dmp' },
+        { level:'INFO',  msg:'sigma PR#5940 matched: dns_tunneling_iodine — src 172.16.0.14' },
+        { level:'WARN',  msg:'certutil.exe -decode detected — T1140 deobfuscation' },
+        { level:'INFO',  msg:'EDR telemetry: injection into explorer.exe blocked' },
+        { level:'ALERT', msg:'C2 channel severed: 185.220.101.34 blocked at FW asgar.net' },
+        { level:'INFO',  msg:'threat intel hit: 91.108.4.200 — APT29 infrastructure' },
+        { level:'WARN',  msg:'172.16.0.14 → 172.16.0.5:22 SSH brute force 47 attempts' },
+        { level:'ALERT', msg:'privilege escalation: lanceterminal token impersonation T1134' },
+        { level:'INFO',  msg:'asgar.net DC heartbeat OK — replication lag 0ms' },
+        { level:'WARN',  msg:'kerberoasting detected: SPN scan from 172.16.0.14' },
+        { level:'ALERT', msg:'golden ticket attempt: forged TGT — asgar.net domain' },
+        { level:'INFO',  msg:'firewall rule updated: drop 185.220.101.0/24 all ports' },
+        { level:'INFO',  msg:'containment complete: 172.16.0.14 quarantined' },
+      ];
+      function getColor(l,dark){ return l==='ALERT'?(dark?'#ff4444':'#cc0000'):l==='WARN'?(dark?'#f0a500':'#b07000'):(dark?'#aaaaaa':'#555555'); }
+      function getLevelColor(l,dark){ return l==='ALERT'?(dark?'#ff4444':'#cc0000'):l==='WARN'?(dark?'#f0a500':'#b07000'):(dark?'#00cc44':'#007722'); }
+      function timestamp(){ const d=new Date(); return d.toTimeString().split(' ')[0]+'.'+String(d.getMilliseconds()).padStart(3,'0'); }
+      let idx=0;
+      function addLine(){
+        const dark=isDark(); const entry=logs[idx%logs.length]; idx++;
+        const line=document.createElement('div'); line.style.cssText=`display:flex;gap:8px;padding:1px 0;opacity:0;transition:opacity 0.3s;color:${getColor(entry.level,dark)};`;
+        const ts=document.createElement('span'); ts.style.cssText=`color:${dark?'#444':'#bbb'};flex-shrink:0;`; ts.textContent=timestamp();
+        const lvl=document.createElement('span'); lvl.style.cssText=`color:${getLevelColor(entry.level,dark)};font-weight:500;flex-shrink:0;min-width:52px;`; lvl.textContent=`[${entry.level}]`;
+        const msg=document.createElement('span'); msg.textContent=entry.msg;
+        line.appendChild(ts); line.appendChild(lvl); line.appendChild(msg);
+        feed.appendChild(line);
+        requestAnimationFrame(()=>{ line.style.opacity='1'; });
+        while(feed.children.length>60) feed.removeChild(feed.firstChild);
+        feed.scrollTop=feed.scrollHeight;
+      }
+      const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){setInterval(addLine,500);} }); },{threshold:0.1});
+      obs.observe(feed);
+    }
+  });
+}, 1400);
+
+const style = document.createElement('style');
+style.textContent = `@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`;
+document.head.appendChild(style);
+</script>

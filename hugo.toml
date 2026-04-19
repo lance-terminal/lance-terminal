@@ -18,7 +18,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
     description = "Incident Response & Threat Detection" # description under title
     dark_mode = true
     favicon = "icons/favicon.png"
-    front_page_content = ["posts"]
+    front_page_content = ["about"]
     menu = [
         {Name = "About", URL = "/about/", HasChildren = false},
         {Name = "Posts", URL = "/posts/", Pre = "Recent", HasChildren = true, Limit = 1},

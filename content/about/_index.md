@@ -31,3 +31,4 @@ contributions:               # ++++++x.  ;:+XX..:     xX  +.+  ;:XX:x X+++++
 handle: "lanceterminal"      # xxxxxxxxxx                +;      X xxxxxxxxx
 ```
 
+{{< terminal >}}
