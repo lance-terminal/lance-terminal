@@ -3,19 +3,31 @@ draft = false
 title = 'About'
 +++
 
-### I am Asgar
-As a Cybersecurity Professional, I specialize in **Digital Forensics and Incident Response (DFIR)**. I have experience defending enterprise networks, enpoints, identity, and cloud resources. I am experienced in successfully leading end-to-end response for multi-million dollar enterprises in eradicating ransomware attacks, business email compromise (BEC), cloud resource abuse, and command-and-control (C2) activities.
+```bash
+$ grep $(whoami) about.yaml
+```
+```yaml
+name: "Asgar, Tashnim"       # :::::::::::::::::::::::::::::::::::::::::::::
+service: "US Marine Veteran" # :::::::::::::::::;++xx;;:::;;::::::::::::::::
+                             # ;;;;;;;;;;;;;:;+ .   X+;;;;;;;;;;;;;:::::::::
+experience:                  # ;;;;;;;;;;;;;;+  .      x;;;;;;;;;;;;;;;;;;;;
+  - "Incident Responder"     # ;;;;;;;;;;;;;               ;;;;;;;;;;;;;;;;;
+  - "Threat Hunter"          # ++;;;;;;;;;;+       X      +;;;;;;;;;;;;;;;;;
+  - "Detection Engineering"  # ++++++++++++      x  XXX:;+;;;;;;;;;;;;;;;;;;
+  - "Digital Forensics"      # +++++++++++;;;+    . ;Xx+++++++++++++++++++++
+  - "Cloud Security"         # ++++++++++++++++       .x++++++++++++++++++++
+                             # ++++++++++x:; ..      : . +++++++++++++++++++
+credentials:                 # ++++++++++  ;     .:  .:; ;++++++++++++++++++
+  - "GCIA" #18118            # ++++++++x x+x;+xx X:+ .;:... :;:..+++++++++++
+  - "GCIH" #51458            # ++++++++ ; +.  ..x x+;xX+.:+:+;xXXXx+++++++++
+  - "GSEC" #57538            # +++++++;.   . ; .+:XX; + X+   ;.:xxxx++++++++
+                             # +++++++        ;:x;: ; +x;xx:;     .. :++++++
+contributions:               # ++++++x.  ;:+XX..:     xX  +.+  ;:XX:x X+++++
+  - "Sigma Detection Rules"  # +++++++         ++XXXXX$X ;+:: xX+  :.x;x++++
+  - "Rapid IR Scripts"       # xx+x+x.       + ;x;X:     .:::Xxx.:: ;  xx+++
+  - "System Scripts"         # xxxxxx+        ; x.;  +++            . xxxxxx
+  - "Cyber Mentorship"       # xxxxxxx+;      .   .::x.x;           ;xxxxxxx
+                             # xxxxxxxxxX         ;.  :  .       x xxxxxxxxx
+handle: "lanceterminal"      # xxxxxxxxxx                +;      X xxxxxxxxx
+```
 
-### Credentials
-- [GIAC Certified Incident Handler (GCIH)](https://www.credly.com/badges/d2d01ae1-297d-4b64-b0ea-e95d584e10ec/public_url)
-- [GIAC Certified Intrusion Analyst (GCIA)](https://www.credly.com/badges/9b3a8315-373d-468d-aa01-ed422e7876c4/public_url)
-- [GIAC Certified Security Essentials (GSEC)](https://www.credly.com/badges/14d02211-c91e-4906-8d90-ec7267ed47c9/public_url)
-- [CompTIA Security+](https://www.credly.com/badges/1addd3a4-9491-4df3-a01f-728256447607/public_url)
-
-### Achievements
-- [SANS Core Netwars Tournament of Champions 2025](https://www.credly.com/badges/1addd3a4-9491-4df3-a01f-728256447607/public_url)
-- [GIAC Advisory Board](https://www.credly.com/badges/10ea3610-0fe2-42f4-b000-847bd95d41a8/public_url)
-
----
-**“Let your plans be dark and impenetrable as night, and when you move, fall like a thunderbolt.”**
-*― Sun Tzu, The Art of War*

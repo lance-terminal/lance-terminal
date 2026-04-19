@@ -6,6 +6,9 @@ theme = "poison"
 [pagination]
     pagerSize = 10
 
+[markup.goldmark.renderer]                                                                                            
+    unsafe = true
+
 pluralizelisttitles = false   # removes the automatically appended "s" on sidebar entries
 
 # NOTE: If using Disqus as commenting engine, uncomment and configure this line

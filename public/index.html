@@ -62,10 +62,10 @@
 <meta property="og:site_name" content="Asgar" />
 
 
-<meta name="description" content="Cloud Security &amp; Detection Engineering" />
-<meta itemprop="description" content="Cloud Security &amp; Detection Engineering" />
-<meta property="og:description" content="Cloud Security &amp; Detection Engineering" />
-<meta name="twitter:description" content="Cloud Security &amp; Detection Engineering" />
+<meta name="description" content="Incident Response &amp; Threat Detection" />
+<meta itemprop="description" content="Incident Response &amp; Threat Detection" />
+<meta property="og:description" content="Incident Response &amp; Threat Detection" />
+<meta name="twitter:description" content="Incident Response &amp; Threat Detection" />
 
 
 <base href="http://localhost:1313/" />
@@ -75,7 +75,7 @@
 <meta property="og:url" content="http://localhost:1313/" />
 
 
-<meta property="og:updated_time" content="2026-04-11T00:00:00Z" />
+<meta property="og:updated_time" content="2026-04-19T00:00:00Z" />
 
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href='http://localhost:1313/sitemap.xml' />
@@ -185,7 +185,7 @@
         
     </h1>
     <p class="lead">
-    Cloud Security & Detection Engineering
+    Incident Response & Threat Detection
     </p>
 </div>
 
@@ -241,6 +241,22 @@
                 
                         
                 
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
             
         
         
@@ -261,7 +277,7 @@
                         </li>
                         
                             <li class="bullet">
-                                <a href="http://localhost:1313/posts/post-2026-04-09/">Zero-Trust Hardening a Proxmox Hypervisor to a Single UDP Port</a>
+                                <a href="http://localhost:1313/posts/post-2026-04-17/">Detecting Suspicious DNS Queries with Sigma: Exfiltration Domains, Abused TLDs, and DNS Tunneling</a>
                             </li>
                         
                     
@@ -275,6 +291,22 @@
                 
             
                 
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
                 
                         
                 
@@ -323,6 +355,22 @@
                 
             
                 
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
+                
+                        
                 
                         
                 
@@ -488,6 +536,154 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     <article class="post">
         <div class="info">
   <h1 class="post-title">
+    <a href="http://localhost:1313/posts/post-2026-04-17/">Detecting Suspicious DNS Queries with Sigma: Exfiltration Domains, Abused TLDs, and DNS Tunneling</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      
+      <time datetime=" 2026-04-17T00:00:00Z" class="post-date">
+        April 17, 2026
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>6 mins read</span>
+      </span>
+    </div>
+
+    
+    <ul class="tags">
+      
+      <li class="tag-Sigma">
+        <a href="http://localhost:1313/tags/sigma">Sigma</a>
+      </li>
+      
+      <li class="tag-DNS">
+        <a href="http://localhost:1313/tags/dns">DNS</a>
+      </li>
+      
+      <li class="tag-C2">
+        <a href="http://localhost:1313/tags/c2">C2</a>
+      </li>
+      
+      <li class="tag-MITRE">
+        <a href="http://localhost:1313/tags/mitre">MITRE</a>
+      </li>
+      
+      <li class="tag-T1048">
+        <a href="http://localhost:1313/tags/t1048">T1048</a>
+      </li>
+      
+      <li class="tag-T1071.004">
+        <a href="http://localhost:1313/tags/t1071.004">T1071.004</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+        
+        <p>DNS is one of the most consistently abused protocols in adversary operations. It is universally permitted outbound, rarely inspected at depth, and generates enough baseline noise that malicious queries frequently go unnoticed. This post covers a Sigma detection rule designed to surface three distinct DNS-based threat patterns: queries to known data exfiltration services, queries resolving to high-risk or abused top-level domains, and subdomain patterns consistent with DNS tunneling.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>DNS-based exfiltration and command-and-control activity falls into three operational patterns that each require a different detection approach.</p>
+        
+        <div class="read-more-link">
+            <a href="/posts/post-2026-04-17/">Read More…</a>
+        </div>
+        
+        
+    </article>
+    <article class="post">
+        <div class="info">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/posts/post-2026-04-13/">Detecting Business Email Compromise in Microsoft 365</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      
+      <time datetime=" 2026-04-13T00:00:00Z" class="post-date">
+        April 13, 2026
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>5 mins read</span>
+      </span>
+    </div>
+
+    
+    <ul class="tags">
+      
+      <li class="tag-Sigma">
+        <a href="http://localhost:1313/tags/sigma">Sigma</a>
+      </li>
+      
+      <li class="tag-M365">
+        <a href="http://localhost:1313/tags/m365">M365</a>
+      </li>
+      
+      <li class="tag-BEC">
+        <a href="http://localhost:1313/tags/bec">BEC</a>
+      </li>
+      
+      <li class="tag-MITRE">
+        <a href="http://localhost:1313/tags/mitre">MITRE</a>
+      </li>
+      
+      <li class="tag-T1564.008">
+        <a href="http://localhost:1313/tags/t1564.008">T1564.008</a>
+      </li>
+      
+      <li class="tag-T1114.003">
+        <a href="http://localhost:1313/tags/t1114.003">T1114.003</a>
+      </li>
+      
+      <li class="tag-T1098.002">
+        <a href="http://localhost:1313/tags/t1098.002">T1098.002</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+        
+        <p>Business Email Compromise (BEC) is one of the most financially damaging threats organizations face today. Attackers only need access to a mailbox and a few quiet inbox rules. This post walks through a Sigma detection rule I built and contributed to <a href="https://github.com/SigmaHQ/sigma/pull/5934" target="_blank">SigmaHQ</a> covering six real-world BEC techniques observed in Microsoft 365 Exchange environments.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>Once an attacker compromises an M365 account — typically through phishing, credential stuffing, or AiTM — their first move is often persistence and concealment. They create inbox rules that:</p>
+        
+        <div class="read-more-link">
+            <a href="/posts/post-2026-04-13/">Read More…</a>
+        </div>
+        
+        
+    </article>
+    <article class="post">
+        <div class="info">
+  <h1 class="post-title">
     <a href="http://localhost:1313/posts/post-2026-04-09/">Zero-Trust Hardening a Proxmox Hypervisor to a Single UDP Port</a>
   </h1>
 
@@ -577,20 +773,28 @@ iptables to enforce the network boundary at the kernel level.</p>
     
     <ul class="tags">
       
-      <li class="tag-Microsoft 365">
-        <a href="http://localhost:1313/tags/microsoft-365">Microsoft 365</a>
+      <li class="tag-Sigma">
+        <a href="http://localhost:1313/tags/sigma">Sigma</a>
       </li>
       
-      <li class="tag-Business Email Compromise">
-        <a href="http://localhost:1313/tags/business-email-compromise">Business Email Compromise</a>
+      <li class="tag-M365">
+        <a href="http://localhost:1313/tags/m365">M365</a>
       </li>
       
-      <li class="tag-MITRE T1114.003">
-        <a href="http://localhost:1313/tags/mitre-t1114.003">MITRE T1114.003</a>
+      <li class="tag-BEC">
+        <a href="http://localhost:1313/tags/bec">BEC</a>
       </li>
       
-      <li class="tag-MITRE T1070.008">
-        <a href="http://localhost:1313/tags/mitre-t1070.008">MITRE T1070.008</a>
+      <li class="tag-MITRE">
+        <a href="http://localhost:1313/tags/mitre">MITRE</a>
+      </li>
+      
+      <li class="tag-T1114.003">
+        <a href="http://localhost:1313/tags/t1114.003">T1114.003</a>
+      </li>
+      
+      <li class="tag-T1070.008">
+        <a href="http://localhost:1313/tags/t1070.008">T1070.008</a>
       </li>
       
     </ul>
