@@ -14,7 +14,7 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 [params]
     brand = "Asgar"     # name of site - appears in the sidebar
     remote_brand_image = 'https://avatars.githubusercontent.com/u/101709186?v=4' # profile image in website
-    description = "Cloud Security & Detection Engineering" # description under title
+    description = "Incident Response & Threat Detection" # description under title
     dark_mode = true
     favicon = "icons/favicon.png"
     front_page_content = ["posts"]
