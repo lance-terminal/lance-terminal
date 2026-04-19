@@ -6,7 +6,7 @@ const pick = Math.floor(Math.random() * 3);
 function isDark(){ return document.documentElement.classList.contains('dark')||document.body.classList.contains('dark')||window.matchMedia('(prefers-color-scheme: dark)').matches; }
 
 const toolCommands = [
-  'sudo tcpdump -r packets.pcap -n -q',
+  'sudo tcpdump -i eth0 -n -q',
   'xxd /tmp/svchost32.exe',
   'tail -f /var/log/siem/alerts.log',
 ];
@@ -68,7 +68,10 @@ setTimeout(() => {
 
     if(pick === 0){
       // TCPDUMP
-      function ts(){ const d=new Date(); return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}.${String(d.getMilliseconds()).padStart(6,'0')}`; }
+      function ts(){
+        const d = new Date();
+        return `${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}:${String(d.getUTCSeconds()).padStart(2,'0')}.${String(d.getMilliseconds()).padStart(6,'0')};`
+        }
       const packets=[
         {type:'normal',msg:'172.16.0.10.52341 > 8.8.8.8.53: UDP, length 32'},
         {type:'normal',msg:'172.16.0.2.443 > 172.16.0.14.49822: Flags [P.], seq 1:441, ack 1, win 501'},
@@ -182,7 +185,10 @@ setTimeout(() => {
       ];
       function getColor(l,dark){ return l==='ALERT'?(dark?'#ff4444':'#cc0000'):l==='WARN'?(dark?'#f0a500':'#b07000'):(dark?'#aaaaaa':'#555555'); }
       function getLevelColor(l,dark){ return l==='ALERT'?(dark?'#ff4444':'#cc0000'):l==='WARN'?(dark?'#f0a500':'#b07000'):(dark?'#00cc44':'#007722'); }
-      function timestamp(){ const d=new Date(); return d.toTimeString().split(' ')[0]+'.'+String(d.getMilliseconds()).padStart(3,'0'); }
+      function timestamp(){
+        const d = new Date();
+        return `${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}:${String(d.getUTCSeconds()).padStart(2,'0')}.${String(d.getMilliseconds()).padStart(3,'0')}`;
+        }
       let idx=0;
       function addLine(){
         const dark=isDark(); const entry=logs[idx%logs.length]; idx++;

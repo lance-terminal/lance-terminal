@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zero Trust Network on Asgar</title>
+    <link>http://localhost:1313/tags/zero-trust-network/</link>
+    <description>Recent content in Zero Trust Network on Asgar</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/zero-trust-network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zero-Trust Hardening a Proxmox Hypervisor to a Single UDP Port</title>
+      <link>http://localhost:1313/posts/post-2026-04-09/</link>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/post-2026-04-09/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;A default Proxmox VE installation exposes four services on the public&#xA;internet. The Proxmox web UI (port 8006), SSH (port 22), rpcbind&#xA;(port 111), and the SPICE proxy (port 3128) are all reachable from&#xA;anywhere on the internet with no network-layer protection. This post&#xA;documents a hardening approach that reduces the public attack surface&#xA;to a single UDP port using Tailscale as a zero-trust access layer and&#xA;iptables to enforce the network boundary at the kernel level.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
