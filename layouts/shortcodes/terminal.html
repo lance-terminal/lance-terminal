@@ -6,7 +6,7 @@ const pick = Math.floor(Math.random() * 3);
 function isDark(){ return document.documentElement.classList.contains('dark')||document.body.classList.contains('dark')||window.matchMedia('(prefers-color-scheme: dark)').matches; }
 
 const toolCommands = [
-  'sudo tcpdump -i eth0 -n -q',
+  'sudo tcpdump -r packets.pcap -n -q',
   'xxd /tmp/svchost32.exe',
   'tail -f /var/log/siem/alerts.log',
 ];
