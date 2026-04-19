@@ -6,8 +6,6 @@ theme = "poison"
 [pagination]
     pagerSize = 10
 
-[markup.goldmark.renderer]                                                                                            
-    unsafe = true
 
 pluralizelisttitles = false   # removes the automatically appended "s" on sidebar entries
 
