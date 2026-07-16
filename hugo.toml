@@ -29,12 +29,12 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
 
 
     # Links to your socials.  Comment or delete any you don't need/use. 
-    email_url = "mailto:connect@asgar.net"
-    substack_url = "https://substack.com/@lanceterminal"
+    email_url = "mailto:tashnim@asgar.net"
+    # substack_url = "https://substack.com/@lanceterminal"
     github_url = "https://github.com/lanceterminal/"
     linkedin_url = "https://linkedin.com/in/asgartashnim"
-    x_url = "https://x.com/lancetermina1"
-    discord_url = "https://asgar.net/"
+    # x_url = "https://x.com/lancetermina1"
+    # discord_url = "https://asgar.net/"
     sponsor_url = "https://github.com/sponsors/lanceterminal"
 
     # NOTE: If you don't want to use RSS, comment or delete the following lines
